@@ -80,6 +80,7 @@ void shortcut_cpu(int batch, int w1, int h1, int c1, float *add, int w2, int h2,
     }
 }
 
+/*batch mean : spatial = input one channel size*/
 void mean_cpu(float *x, int batch, int filters, int spatial, float *mean)
 {
     float scale = 1./(batch * spatial);
@@ -96,6 +97,7 @@ void mean_cpu(float *x, int batch, int filters, int spatial, float *mean)
     }
 }
 
+/*batch variance correspondong to each filter  */
 void variance_cpu(float *x, float *mean, int batch, int filters, int spatial, float *variance)
 {
     float scale = 1./(batch * spatial - 1);
@@ -112,6 +114,7 @@ void variance_cpu(float *x, float *mean, int batch, int filters, int spatial, fl
     }
 }
 
+/*batch normalize */
 void normalize_cpu(float *x, float *mean, float *variance, int batch, int filters, int spatial)
 {
     int b, f, i;

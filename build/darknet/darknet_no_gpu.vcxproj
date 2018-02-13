@@ -88,14 +88,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\opencv_3.0\opencv\build\include;..\..\3rdparty\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\opencv\build\include;..\..\3rdparty\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;OPENCV;_TIMESPEC_DEFINED;_CRT_SECURE_NO_WARNINGS;_CRT_RAND_S;WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UndefinePreprocessorDefinitions>CUDNN</UndefinePreprocessorDefinitions>
       <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\opencv_3.0\opencv\build\x64\vc14\lib;C:\opencv_2.4.13\opencv\build\x64\vc12\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\opencv\build\x64\vc14\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)\$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalDependencies>..\..\3rdparty\lib\x64\pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -273,6 +273,9 @@
     <ClInclude Include="..\..\src\tree.h" />
     <ClInclude Include="..\..\src\unistd.h" />
     <ClInclude Include="..\..\src\utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

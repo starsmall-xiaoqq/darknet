@@ -32,6 +32,7 @@ extern void run_go(int argc, char **argv);
 extern void run_art(int argc, char **argv);
 extern void run_super(int argc, char **argv);
 
+/*average multiple weights */
 void average(int argc, char *argv[])
 {
     char *cfgfile = argv[2];
@@ -52,7 +53,7 @@ void average(int argc, char *argv[])
             layer l = net.layers[j];
             layer out = sum.layers[j];
             if(l.type == CONVOLUTIONAL){
-                int num = l.n*l.c*l.size*l.size;
+                int num = l.n * l.c * l.size * l.size;
                 axpy_cpu(l.n, 1, l.biases, 1, out.biases, 1);
                 axpy_cpu(num, 1, l.weights, 1, out.weights, 1);
                 if(l.batch_normalize){
@@ -71,7 +72,7 @@ void average(int argc, char *argv[])
     for(j = 0; j < net.n; ++j){
         layer l = sum.layers[j];
         if(l.type == CONVOLUTIONAL){
-            int num = l.n*l.c*l.size*l.size;
+            int num = l.n * l.c * l.size * l.size;
             scal_cpu(l.n, 1./n, l.biases, 1);
             scal_cpu(num, 1./n, l.weights, 1);
                 if(l.batch_normalize){
@@ -88,6 +89,7 @@ void average(int argc, char *argv[])
     save_weights(sum, outfile);
 }
 
+/*verify network prediction speed*/
 void speed(char *cfgfile, int tics)
 {
     if (tics == 0) tics = 1000;
@@ -105,6 +107,7 @@ void speed(char *cfgfile, int tics)
     printf("Speed: %f Hz\n", tics/t);
 }
 
+/*calculate network operation number*/
 void operations(char *cfgfile)
 {
     gpu_index = -1;
@@ -113,8 +116,8 @@ void operations(char *cfgfile)
     long ops = 0;
     for(i = 0; i < net.n; ++i){
         layer l = net.layers[i];
-        if(l.type == CONVOLUTIONAL){
-            ops += 2l * l.n * l.size*l.size*l.c * l.out_h*l.out_w;
+        if(l.type == CONVOLUTIONAL){ /*why /what is 2l?*/
+            ops += 2l * l.n * l.size * l.size * l.c * l.out_h * l.out_w;
         } else if(l.type == CONNECTED){
             ops += 2l * l.inputs * l.outputs;
         }
@@ -123,6 +126,7 @@ void operations(char *cfgfile)
     printf("Floating Point Operations: %.2f Bn\n", (float)ops/1000000000.);
 }
 
+/**??*/
 void oneoff(char *cfgfile, char *weightfile, char *outfile)
 {
     gpu_index = -1;
@@ -148,6 +152,7 @@ void oneoff(char *cfgfile, char *weightfile, char *outfile)
     save_weights(net, outfile);
 }
 
+/*get partial network model*/
 void partial(char *cfgfile, char *weightfile, char *outfile, int max)
 {
     gpu_index = -1;
